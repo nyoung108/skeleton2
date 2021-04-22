@@ -94,12 +94,13 @@ public class Console {
     public void printf(String format, Object args) {
         System.out.printf(format, args);
     }
-    
-    public void printLeaderBoard(){
+
+    public void printLeaderBoard() {
         ArrayList<String> scores = readFile();
         System.out.println("The current high scores are: ");
         for (int i = 0; i < scores.size(); i++) {
             System.out.println(scores);
+
         }
     }
 

@@ -28,7 +28,7 @@ public class SkeletonProgram {
                 }
             } while (playerOne.getSymbol() != 'X' && playerOne.getSymbol() != 'O');
             
-            if (playerTwo.getSymbol() == 'X') {
+            if (playerOne.getSymbol() == 'X') {     //changed  if (playerTwo.getSymbol() == 'X') to playerOne to fix picking symbol error
                 playerTwo.setSymbol('O');
             } else {
                 playerTwo.setSymbol('X');
@@ -146,6 +146,12 @@ public class SkeletonProgram {
             boolean validMove;
             validMove = true;
             if (coordinate.getX() < 1 || coordinate.getX() > 3) {
+                validMove = false;
+            }
+            if (coordinate.getY() < 1 || coordinate.getY() > 3) {
+                validMove = false;
+            }
+            if(board[coordinate.getX()][coordinate.getY()]==coordinate.getY() || board[coordinate.getX()][coordinate.getY()]==coordinate.getX() ){
                 validMove = false;
             }
             return validMove;
