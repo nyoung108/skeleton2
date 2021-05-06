@@ -1,5 +1,7 @@
 package skeletonprogram;
 
+import java.util.Scanner;
+
 public class SkeletonProgram {
 
     public static class Main {
@@ -11,9 +13,11 @@ public class SkeletonProgram {
         Console console = new Console();
 
         public Main() {
+            Scanner input = new Scanner(System.in);
+            int boardSize = input.nextInt();
             console.printLeaderBoard();
-
-            board = new char[4][4];
+            System.out.println("Enter wanted board size");
+            board = new char[boardSize + 1][boardSize + 1]; //change
 
             playerOne = new Player(console.readLine("What is the name of player one? "));
             playerTwo = new Player(console.readLine("What is the name of player two? "));
@@ -71,7 +75,7 @@ public class SkeletonProgram {
 
                     if (!gameHasBeenWon) {
 
-                        if (noOfMoves == 9) {
+                        if (noOfMoves == 16) { //board size squared
                             gameHasBeenDrawn = true;
                         } else {
 
@@ -106,32 +110,41 @@ public class SkeletonProgram {
                 } else {
                     startSymbol = playerOne.getSymbol();
                 }
+
                 replay = console.readChar("\n Another game Y/N? ");
-            } while (replay != 'N' && replay != 'n');
+
+                while (replay != 'Y' && replay != 'N') {
+                    System.out.println("Please enter Y/N");
+
+                    replay = console.readChar("\n Another game Y/N? ");
+                }
+
+            } while (replay == 'Y');
 
             console.writeFile(playerOne.toString());
             console.writeFile(playerTwo.toString());
+
         }
 
-        void displayBoard() {
+        void displayBoard(int boardSize) {
             int row;
             int column;
-            console.println(" | 1 2 3 ");
-            console.println("--+-------");
-            for (row = 1; row <= 3; row++) {
+            console.println(" | 1 2 3 4 "); //change
+            console.println("--+------------");
+            for (row = 1; row <= boardSize; row++) { //change
                 console.write(row + " | ");
-                for (column = 1; column <= 3; column++) {
+                for (column = 1; column <= boardSize; column++) { //change
                     console.write(board[column][row] + " ");
                 }
                 console.println();
             }
         }
 
-        void clearBoard() {
+        void clearBoard(int boardSize) {
             int row;
             int column;
-            for (row = 1; row <= 3; row++) {
-                for (column = 1; column <= 3; column++) {
+            for (row = 1; row <= boardSize; row++) { //change
+                for (column = 1; column <= boardSize; column++) { //change
                     board[column][row] = ' ';
                 }
             }
@@ -142,52 +155,51 @@ public class SkeletonProgram {
             return coordinate;
         }
 
-        boolean checkValidMove(Coordinate coordinate, char[][] board) {
+        boolean checkValidMove(Coordinate coordinate, char[][] board, int boardSize) {
             boolean validMove;
             validMove = true;
-            
-            if (coordinate.getX() < 1 || coordinate.getX() > 3) {
-                validMove = false;              
-            }
-            else if (coordinate.getY() < 1 || coordinate.getY() > 3) {  //copy and paste X but change
-                validMove = false;
-            } else if (coordinate.getX() >= 1 && coordinate.getX() <= 3) {
-                if (coordinate.getY() >= 1 && coordinate.getY() <= 3) {
 
-                    if (board[coordinate.getX()][coordinate.getY()] == 'X' || board[coordinate.getX()][coordinate.getY()] == 'O') {
-                        System.out.println("This space is taken");    // if move in array size but equals X or O 
-                        validMove = false;
-                    }
-                }
+            if (coordinate.getX() < 1 || coordinate.getX() > boardSize || coordinate.getY() < 1 || coordinate.getY() > boardSize) { //change
+                validMove = false;
+
+            } else if (board[coordinate.getX()][coordinate.getY()] == 'X' || board[coordinate.getX()][coordinate.getY()] == 'O') {
+                System.out.println("This space is taken");    // if move in array size but equals X or O 
+                validMove = false;
             }
+
             return validMove;
         }
 
-        boolean checkXOrOHasWon() {
+        boolean checkXOrOHasWon(int boardSize) {
             boolean xOrOHasWon;
             int row;
             int column;
             xOrOHasWon = false;
 
-            for (column = 1; column <= 3; column++) {
-                if (board[column][1] == board[column][2]
-                        && board[column][2] == board[column][3]
-                        && board[column][2] != ' ') {
-                    xOrOHasWon = true;
+            for (column = 1; column < boardSize; column++) {
+                for (int i = 1; i < boardSize; i++) {
+                    if (column == i) {
+                        if (board[column][i] == board[column + 1][i + 1] && board[column][i] != ' ') {
+                            xOrOHasWon = true;
+                        }
+                    }
+
                 }
             }
-            for (row = 1; row <= 3; row++) {
+            for (row = 1; row <= 4; row++) { //change
                 if (board[1][row] == board[2][row]
                         && board[2][row] == board[3][row]
+                        && board[3][row] == board[4][row] //change
                         && board[2][row] != ' ') {
                     xOrOHasWon = true;
                 }
             }
-            
-                if(board[1][1]==board[2][2]&&board[2][2]==board[3][3]&&board[2][2]!=' '){
-                    xOrOHasWon = true;
-                }
-            
+
+            if (board[1][1] == board[2][2] && board[2][2] == board[3][3] && board[3][3] == board[4][4] && board[2][2] != ' ') { //change
+                xOrOHasWon = true;
+            } else if (board[1][4] == board[2][3] && board[2][3] == board[3][2] && board[3][2] == board[4][1] && board[2][3] != ' ') { //change
+                xOrOHasWon = true;
+            }
             return xOrOHasWon;
         }
     }
