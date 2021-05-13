@@ -126,7 +126,7 @@ public class SkeletonProgram {
             console.writeFile(playerTwo.toString());
 
         }
-    
+
         void displayBoard(char[][] board) {
 
             String xAxis = " | ";
@@ -156,7 +156,7 @@ public class SkeletonProgram {
             }
         }
 
-     Coordinate getMoveCoordinates() {
+        Coordinate getMoveCoordinates() {
             Coordinate coordinate = new Coordinate(console.readInteger("Enter x Coordinate: "), console.readInteger("Enter y Coordinate: "));
             return coordinate;
         }
@@ -165,7 +165,7 @@ public class SkeletonProgram {
             boolean validMove;
             validMove = true;
 
-            if (coordinate.getX() < 1 || coordinate.getX() > board.length || coordinate.getY() < 1 || coordinate.getY() > board.length) { //change
+            if (coordinate.getX() < 1 || coordinate.getX() >= board.length || coordinate.getY() < 1 || coordinate.getY() >= board.length) { //change
                 validMove = false;
 
             } else if (board[coordinate.getX()][coordinate.getY()] == 'X' || board[coordinate.getX()][coordinate.getY()] == 'O') {
@@ -182,40 +182,43 @@ public class SkeletonProgram {
             int column;
             xOrOHasWon = false;
 
-            for (column = 1; column <= board.length - 3; column++) {
-                for (int i = 1; i < board.length - 2; i++) {
-                    if (column == i) {
+            for (column = 1; column < board.length; column++) {
+                for (int i = 1; i <= board.length - 3; i++) {
+                    
                         if (board[column][i] == board[column][i + 1] && board[column][i + 1] == board[column][i + 2] && board[column][i] != ' ') {
                             xOrOHasWon = true;
                         }
-                    }
+                 
 
                 }
             }
-            for (row = 1; row <= board.length - 3; row++) {
-                for (int i = 1; i <= board.length - 2; i++) {
-                    if (row == i) {
+            for (row = 1; row < board.length; row++) {
+                for (int i = 1; i <= board.length - 3; i++) {
+                   
                         if (board[i][row] == board[i + 1][row] && board[i + 1][row] == board[i + 2][row] && board[i][row] != ' ') {
                             xOrOHasWon = true;
                         }
-                    }
+                   
                 }
             }
-            for (int i = 0; i <= board.length-3; i++) {
+            for (int i = 1; i <= board.length - 3; i++) {
+                for (int j = 1; j <= board.length - 3; j++) {
+                    
                 
-            
-            if (board[i][i] == board[i+1][i+1] && board[i+1][i+1] == board[i+2][i+2] && board[i][i] != ' ') { //change
-                xOrOHasWon = true;
+                if (board[i][j] == board[i + 1][j + 1] && board[i + 1][j + 1] == board[i + 2][j + 2] && board[i][j] != ' ') { //change
+                    xOrOHasWon = true;
+                    
+                } else if (board[i][board.length - j] == board[i + 1][board.length - j - 1] && board[i + 1][board.length - j - 1] == board[i + 2][board.length - j - 2] && board[i][board.length - j] != ' ') {
+                    xOrOHasWon = true;
+                }
+                
+
             }
-             else if (board[i][board.length-i] == board[i+1][board.length-i-1] && board[i+1][board.length-i-1] == board[i+2][board.length-i-2]  && board[i][board.length-i] != ' ') { 
-                xOrOHasWon = true;
             }
             return xOrOHasWon;
-        
         }
-            return xOrOHasWon;
     }
-    }
+
     public static void main(String[] args) {
         new Main();
     }
