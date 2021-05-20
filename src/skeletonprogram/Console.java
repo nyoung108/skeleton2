@@ -97,11 +97,22 @@ public class Console {
 
     public void printLeaderBoard() {
         ArrayList<String> scores = readFile();
+        
         System.out.println("The current high scores are: ");
+        int temp = 0;
         for (int i = 0; i < scores.size(); i++) {
-            System.out.println(scores);
-
+            for (int j = i+1; j < scores.size(); j++) {
+                if(scores.get(i).lastIndexOf(scores.get(i))>scores.get(j).lastIndexOf(scores.get(j))){
+                    temp = j;
+                    j = i;
+                    i = temp;
+                }
+            }
         }
+        for (int i = 0; i < scores.size(); i++) {
+            System.out.println("High scores are: "+scores.get(i));
+        }
+        
     }
 
     public void writeFile(String scores) {

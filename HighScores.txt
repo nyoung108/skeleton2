@@ -1,2 +1,11 @@
 Player Name: Julie, Symbol: X, Score: 1.0
 Player Name: Charlotte, Symbol: X, Score: 0.0
+Player Name: d, Symbol: X, Score: 1.0
+Player Name: s, Symbol: O, Score: 0.0
+Player Name: sgd, Symbol: X, Score: 0.0
+Player Name: df, Symbol: O, Score: 0.0
+Player Name: df, Symbol: X, Score: 0.0
+Player Name: df, Symbol: O, Score: 0.0
+Player Name: egg, Symbol: @, Score: 0.0
+Player Name: carrot, Symbol: X, Score: 2.0
+Player Name: potato, Symbol: O, Score: 2.0

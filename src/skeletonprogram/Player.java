@@ -5,7 +5,7 @@ package skeletonprogram;
 public class Player {
     private String playerName;
     private char symbol;
-    private float score;
+    private int score;
 
     public Player(String name) {
         this.playerName = name;
